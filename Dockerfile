@@ -49,13 +49,12 @@ RUN apk add --no-cache \
     su-exec \
     tcpdump  \
     ttf-dejavu \
-    xmlstarlet \
+    xmlstarlet
 
 RUN cd /tmp/ \
  && curl --location --silent --show-error --output apache-jmeter-${JMETER_VERSION}.tgz ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz \
- && curl --location --silent --show-error --output apache-jmeter-${JMETER_VERSION}.tgz.sha512 ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz.sha512
-
-RUN sha512sum -c apache-jmeter-${JMETER_VERSION}.tgz.sha512 \
+ && curl --location --silent --show-error --output apache-jmeter-${JMETER_VERSION}.tgz.sha512 ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz.sha512 \
+ && sha512sum -c apache-jmeter-${JMETER_VERSION}.tgz.sha512 \
  && mkdir -p /opt/ \
  && tar x -z -f apache-jmeter-${JMETER_VERSION}.tgz -C /opt \
  && rm -R -f apache* \
@@ -63,10 +62,8 @@ RUN sha512sum -c apache-jmeter-${JMETER_VERSION}.tgz.sha512 \
  && sed -i '/PrintGCDetails/s/^# /: "${/g' ${JMETER_BIN}/jmeter && sed -i '/PrintGCDetails/s/$/}"/g' ${JMETER_BIN}/jmeter \
  && chmod +x ${JMETER_HOME}/bin/*.sh \
  && jmeter --version \
-
-RUN curl --location --silent --show-error --output /opt/alpn-boot-${ALPN_VERSION}.jar https://repo1.maven.org/maven2/org/mortbay/jetty/alpn/alpn-boot/${ALPN_VERSION}/alpn-boot-${ALPN_VERSION}.jar
-
-RUN rm -fr /tmp/*
+ && curl --location --silent --show-error --output /opt/alpn-boot-${ALPN_VERSION}.jar https://repo1.maven.org/maven2/org/mortbay/jetty/alpn/alpn-boot/${ALPN_VERSION}/alpn-boot-${ALPN_VERSION}.jar \
+ && rm -fr /tmp/*
 
 # Required for HTTP2 plugins
 ENV JVM_ARGS -Xbootclasspath/p:/opt/alpn-boot-${ALPN_VERSION}.jar
