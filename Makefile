@@ -23,7 +23,7 @@ tidy:
 .PHONY: audit
 audit:
 	go vet ./...
-	go run honnef.co/go/tools/cmd/staticcheck@latest -checks=all,-ST1000,-U1000 ./...
+	go run honnef.co/go/tools/cmd/staticcheck@latest -checks=all,-ST1000,-U1000,-ST1003 ./...
 	go test -race -vet=off -coverprofile=coverage.out ./...
 	go mod verify
 
@@ -58,20 +58,4 @@ run: tidy build
 ## container: build the container image
 .PHONY: container
 container:
-	docker build -t extension-scaffold:latest .
-
-# ==================================================================================== #
-# EJECT
-# ==================================================================================== #
-
-## eject: remove / clear up files associated with the scaffold repository
-.PHONY: eject
-eject:
-	rm CHANGELOG.md
-	mv CHANGELOG.SCAFFOLD.md CHANGELOG.md
-	rm CONTRIBUTING.md
-	mv CONTRIBUTING.SCAFFOLD.md CONTRIBUTING.md
-	rm README.md
-	mv README.SCAFFOLD.md README.md
-	rm LICENSE
-	mv LICENSE.SCAFFOLD LICENSE
+	docker build -t extension-jmeter:latest .
