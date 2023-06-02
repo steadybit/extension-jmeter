@@ -100,13 +100,16 @@ func (l *JmeterLoadTestRunAction) Prepare(_ context.Context, state *JmeterLoadTe
 	if err := extconversion.Convert(request.Config, &config); err != nil {
 		return nil, extension_kit.ToError("Failed to unmarshal the config.", err)
 	}
-	logfile := fmt.Sprintf("/tmp/steadybit/%v/result.jtl", request.ExecutionId) //Folder is managed by action_kit_sdk's file download handling
+	logsamples := fmt.Sprintf("/tmp/steadybit/%v/result.jtl", request.ExecutionId) //Folder is managed by action_kit_sdk's file download handling
+	logfile := fmt.Sprintf("/tmp/steadybit/%v/log.txt", request.ExecutionId)
 	command := []string{
 		"jmeter",
 		"--nongui",
 		"--testfile",
 		config.File,
 		"--logfile",
+		logsamples,
+		"--jmeterlogfile",
 		logfile,
 		"-Djmeter.save.saveservice.output_format=xml",
 	}
@@ -177,10 +180,6 @@ func (l *JmeterLoadTestRunAction) Status(_ context.Context, state *JmeterLoadTes
 		}
 	}
 
-	filename := fmt.Sprintf("/tmp/steadybit/%v/log.txt", state.ExecutionId) //Folder is managed by action_kit_sdk's file download handling
-	if err := extfile.AppendToFile(filename, stdOut); err != nil {
-		return nil, extension_kit.ToError("Failed to append log to file", err)
-	}
 	messages := stdOutToMessages(stdOut)
 	log.Debug().Msgf("Returning %d messages", len(messages))
 
@@ -216,10 +215,6 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 	// read Stout and Stderr and send it as Messages
 	stdOut := cmdState.GetLines(true)
 	stdOutToLog(stdOut)
-	filename := fmt.Sprintf("/tmp/steadybit/%v/log.txt", state.ExecutionId) //Folder is managed by action_kit_sdk's file download handling
-	if err := extfile.AppendToFile(filename, stdOut); err != nil {
-		return nil, extension_kit.ToError("Failed to append log to file", err)
-	}
 	messages := stdOutToMessages(stdOut)
 
 	// read return code and send it as Message
@@ -234,6 +229,7 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 	var artifacts []action_kit_api.Artifact
 
 	// check if log file exists and send it as artifact
+	filename := fmt.Sprintf("/tmp/steadybit/%v/log.txt", state.ExecutionId)
 	_, err = os.Stat(filename)
 	if err == nil { // file exists
 		content, err := extfile.File2Base64(filename)
