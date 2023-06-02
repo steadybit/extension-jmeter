@@ -3,7 +3,7 @@
 ##
 ## Build
 ##
-FROM golang:1.20-alpine AS build
+FROM golang:1.20-bullseye AS build
 
 ARG NAME
 ARG VERSION
@@ -11,7 +11,9 @@ ARG REVISION
 
 WORKDIR /app
 
-RUN apk add build-base
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends build-essential
 COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
@@ -39,7 +41,7 @@ ENV PATH ${JMETER_BIN}:$PATH
 ## Installing dependencies
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y wget coreutils unzip bash curl
+    apt-get install -y --no-install-recommends wget coreutils unzip bash curl
 
 # Installing jmeter
 RUN mkdir -p /opt/
