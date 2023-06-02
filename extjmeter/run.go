@@ -270,7 +270,7 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 			log.Error().Msgf("Failed to parse result xml: %s", err)
 			return nil, err
 		}
-		failure := xmlquery.Find(resultXml, "//failureMessage[not(*) and normalize-space()]")
+		failure := xmlquery.Find(resultXml, "//failureMessage[not(*) and normalize-space(.)]")
 		if len(failure) > 0 {
 			resultFailure = &action_kit_api.ActionKitError{
 				Status: extutil.Ptr(action_kit_api.Failed),
