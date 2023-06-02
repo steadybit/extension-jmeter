@@ -200,6 +200,11 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 	}
 	extcmd.RemoveCmdState(state.CmdStateID)
 
+	// gracefully stop JMeter
+	if err := exec.Command("stoptest.sh").Run(); err != nil {
+		return nil, extension_kit.ToError("Failed to stop jmeter gracefully.", err)
+	}
+
 	// kill JMeter if it is still running
 	var pid = state.Pid
 	process, err := os.FindProcess(pid)
