@@ -28,52 +28,38 @@ RUN go build \
 ##
 ## Runtime
 ##
-FROM openjdk:8-jdk-alpine
+FROM openjdk:21-slim
 
 ENV MIRROR https://www-eu.apache.org/dist/jmeter/binaries
 ENV JMETER_VERSION 5.5
 ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
 ENV JMETER_BIN ${JMETER_HOME}/bin
-ENV ALPN_VERSION 8.1.13.v20181017
 ENV PATH ${JMETER_BIN}:$PATH
 
-RUN apk add --no-cache \
-    curl \
-    fontconfig \
-    libxext \
-    libxi \
-    libxrender \
-    libxtst \
-    net-tools \
-    shadow \
-    su-exec \
-    tcpdump  \
-    ttf-dejavu \
-    xmlstarlet
+## Installing dependencies
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y wget coreutils unzip bash curl
 
+# Installing jmeter
+RUN mkdir -p /opt/
+ADD ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz /tmp/
+ADD ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz.sha512 /tmp/
 RUN cd /tmp/ \
- && curl --location --silent --show-error --output apache-jmeter-${JMETER_VERSION}.tgz ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz \
- && curl --location --silent --show-error --output apache-jmeter-${JMETER_VERSION}.tgz.sha512 ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz.sha512 \
  && sha512sum -c apache-jmeter-${JMETER_VERSION}.tgz.sha512 \
- && mkdir -p /opt/ \
  && tar x -z -f apache-jmeter-${JMETER_VERSION}.tgz -C /opt \
  && rm -R -f apache* \
- && sed -i '/RUN_IN_DOCKER/s/^# //g' ${JMETER_BIN}/jmeter \
- && sed -i '/PrintGCDetails/s/^# /: "${/g' ${JMETER_BIN}/jmeter && sed -i '/PrintGCDetails/s/$/}"/g' ${JMETER_BIN}/jmeter \
- && chmod +x ${JMETER_HOME}/bin/*.sh \
- && jmeter --version \
- && curl --location --silent --show-error --output /opt/alpn-boot-${ALPN_VERSION}.jar https://repo1.maven.org/maven2/org/mortbay/jetty/alpn/alpn-boot/${ALPN_VERSION}/alpn-boot-${ALPN_VERSION}.jar \
- && rm -fr /tmp/*
+ && rm --recursive --force  ${JMETER_HOME}/docs \
+ && chmod +x ${JMETER_HOME}/bin/*.sh
 
-# Required for HTTP2 plugins
-ENV JVM_ARGS -Xbootclasspath/p:/opt/alpn-boot-${ALPN_VERSION}.jar
-
+# Setup user
 ARG USERNAME=steadybit
 ARG USER_UID=10000
-
-RUN adduser -u $USER_UID -D $USERNAME
-
+RUN adduser --uid $USER_UID $USERNAME
 USER $USERNAME
+
+# Check installation
+RUN jmeter --version
 
 WORKDIR /
 
