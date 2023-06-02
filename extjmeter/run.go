@@ -61,7 +61,7 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 		Kind:        action_kit_api.LoadTest,
 		TimeControl: action_kit_api.Internal,
 		Hint: &action_kit_api.ActionHint{
-			Content: "Please note that load tests are executed by any one of the agents participating in the experiments, consuming resources of the system that it is installed in.",
+			Content: "Please note that load tests are executed by the jmeter extension participating in the experiment, consuming resources of the system that it is installed in.",
 			Type:    action_kit_api.HintWarning,
 		},
 		Parameters: []action_kit_api.ActionParameter{
