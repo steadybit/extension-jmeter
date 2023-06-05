@@ -21,19 +21,15 @@ import (
 	"os"
 	"os/exec"
 	"strings"
-	"time"
 )
 
 type JmeterLoadTestRunAction struct{}
 
 type JmeterLoadTestRunState struct {
-	Command         []string  `json:"command"`
-	Pid             int       `json:"pid"`
-	CmdStateID      string    `json:"cmdStateId"`
-	Timestamp       string    `json:"timestamp"`
-	StdOutLineCount int       `json:"stdOutLineCount"`
-	ExecutionId     uuid.UUID `json:"executionId"`
-	CloudRunId      string    `json:"cloudRunId"`
+	Command     []string  `json:"command"`
+	Pid         int       `json:"pid"`
+	CmdStateID  string    `json:"cmdStateId"`
+	ExecutionId uuid.UUID `json:"executionId"`
 }
 
 // Make sure action implements all required interfaces
@@ -122,7 +118,6 @@ func (l *JmeterLoadTestRunAction) Prepare(_ context.Context, state *JmeterLoadTe
 	}
 
 	state.ExecutionId = request.ExecutionId
-	state.Timestamp = time.Now().Format(time.RFC3339)
 	state.Command = command
 
 	return nil, nil
