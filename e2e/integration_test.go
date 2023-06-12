@@ -30,7 +30,14 @@ func TestWithMinikube(t *testing.T) {
 }
 
 func testRunJMeter(t *testing.T, m *e2e.Minikube, e *e2e.Extension) {
-	config := struct{}{}
+	config := struct {
+		Parameter []map[string]string
+	}{
+		Parameter: []map[string]string{
+			{"key": "Test1", "value": "foo"},
+			{"key": "Test2", "value": "bar"},
+		},
+	}
 	files := []e2e.File{
 		{
 			ParameterName: "file",
