@@ -15,7 +15,7 @@ The extension supports all environment variables provided by [steadybit/extensio
 ### Using Docker
 
 ```sh
-$ docker run \
+docker run \
   --rm \
   -p 8087 \
   --name steadybit-extension-jmeter \
@@ -25,9 +25,9 @@ $ docker run \
 ### Using Helm in Kubernetes
 
 ```sh
-$ helm repo add steadybit-extension-jmeter https://steadybit.github.io/extension-jmeter
-$ helm repo update
-$ helm upgrade steadybit-extension-jmeter \
+helm repo add steadybit-extension-jmeter https://steadybit.github.io/extension-jmeter
+helm repo update
+helm upgrade steadybit-extension-jmeter \
     --install \
     --wait \
     --timeout 5m0s \
