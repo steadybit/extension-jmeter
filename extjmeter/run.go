@@ -225,16 +225,35 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 
 	// check if log file exists and send it as artifact
 	filename := fmt.Sprintf("/tmp/steadybit/%v/log.txt", state.ExecutionId)
-	_, err = os.Stat(filename)
+	stats, err := os.Stat(filename)
 	if err == nil { // file exists
-		content, err := extfile.File2Base64(filename)
-		if err != nil {
-			return nil, err
+		if stats.Size() > 1000000 {
+			//zip if more than 1mb
+			zippedLogs := fmt.Sprintf("/tmp/steadybit/%v/log.zip", state.ExecutionId)
+			log.Info().Msgf("Zip metrics with command: %s %s %s", "zip", zippedLogs, filename)
+			zipCommand := exec.Command("zip", zippedLogs, filename)
+			zipErr := zipCommand.Run()
+			if zipErr != nil {
+				return nil, extension_kit.ToError("Failed to zip log", err)
+			}
+			content, err := extfile.File2Base64(zippedLogs)
+			if err != nil {
+				return nil, err
+			}
+			artifacts = append(artifacts, action_kit_api.Artifact{
+				Label: "$(experimentKey)_$(executionId)_log.zip",
+				Data:  content,
+			})
+		} else {
+			content, err := extfile.File2Base64(filename)
+			if err != nil {
+				return nil, err
+			}
+			artifacts = append(artifacts, action_kit_api.Artifact{
+				Label: "$(experimentKey)_$(executionId)_log.txt",
+				Data:  content,
+			})
 		}
-		artifacts = append(artifacts, action_kit_api.Artifact{
-			Label: "$(experimentKey)_$(executionId)_log.txt",
-			Data:  content,
-		})
 	}
 
 	resultFilename := fmt.Sprintf("/tmp/steadybit/%v/result.jtl", state.ExecutionId)
