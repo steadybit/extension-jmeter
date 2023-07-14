@@ -12,15 +12,6 @@ The extension supports all environment variables provided by [steadybit/extensio
 
 ## Installation
 
-### Using Docker
-
-```sh
-docker run \
-  --rm \
-  -p 8087 \
-  --name steadybit-extension-jmeter \
-  ghcr.io/steadybit/extension-jmeter:latest
-```
 
 ### Using Helm in Kubernetes
 
@@ -36,7 +27,22 @@ helm upgrade steadybit-extension-jmeter \
     steadybit-extension-jmeter/steadybit-extension-jmeter
 ```
 
+### Using Docker
+
+```sh
+docker run \
+  --rm \
+  -p 8087 \
+  --name steadybit-extension-jmeter \
+  ghcr.io/steadybit/extension-jmeter:latest
+```
+
+### Linux Package
+
+This extension is currently not available as a Linux package.
+
 ## Register the extension
 
 Make sure to register the extension at the steadybit platform. Please refer to
 the [documentation](https://docs.steadybit.com/integrate-with-steadybit/extensions/extension-installation) for more information.
+
