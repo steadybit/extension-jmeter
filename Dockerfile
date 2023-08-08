@@ -34,6 +34,8 @@ RUN go build \
 ##
 FROM openjdk:21-slim
 
+LABEL "steadybit.com.discovery-enabled"="false"
+
 ENV MIRROR https://www-eu.apache.org/dist/jmeter/binaries
 ENV JMETER_VERSION 5.5
 ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
