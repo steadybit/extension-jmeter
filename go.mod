@@ -4,12 +4,12 @@ go 1.20
 
 require (
 	github.com/antchfx/xmlquery v1.3.17
-	github.com/google/uuid v1.3.0
+	github.com/google/uuid v1.3.1
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/rs/zerolog v1.30.0
 	github.com/steadybit/action-kit/go/action_kit_api/v2 v2.7.1
 	github.com/steadybit/action-kit/go/action_kit_sdk v1.1.5
-	github.com/steadybit/action-kit/go/action_kit_test v1.0.9
+	github.com/steadybit/action-kit/go/action_kit_test v1.0.15
 	github.com/steadybit/extension-kit v1.8.7
 	github.com/stretchr/testify v1.8.4
 )
@@ -58,7 +58,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.9 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/steadybit/discovery-kit/go/discovery_kit_api v1.3.0 // indirect
+	github.com/steadybit/discovery-kit/go/discovery_kit_api v1.4.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
