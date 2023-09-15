@@ -4,6 +4,7 @@
 package e2e
 
 import (
+	"github.com/steadybit/action-kit/go/action_kit_test/client"
 	"github.com/steadybit/action-kit/go/action_kit_test/e2e"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -35,7 +36,7 @@ func testRunJMeter(t *testing.T, m *e2e.Minikube, e *e2e.Extension) {
 			{"key": "Test2", "value": "bar"},
 		},
 	}
-	files := []e2e.File{
+	files := []client.File{
 		{
 			ParameterName: "file",
 			FileName:      "script.js",
