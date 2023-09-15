@@ -221,7 +221,7 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 		})
 	}
 
-	var artifacts []action_kit_api.Artifact
+	artifacts := make([]action_kit_api.Artifact, 0)
 
 	// check if log file exists and send it as artifact
 	filename := fmt.Sprintf("/tmp/steadybit/%v/log.txt", state.ExecutionId)
