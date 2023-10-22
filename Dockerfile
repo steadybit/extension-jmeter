@@ -34,7 +34,7 @@ RUN make licenses-report
 ##
 ## Runtime
 ##
-FROM openjdk:21-slim
+FROM azul/zulu-openjdk-debian:21
 
 LABEL "steadybit.com.discovery-disabled"="true"
 
@@ -50,10 +50,9 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends wget coreutils unzip bash curl procps
 
 # Installing jmeter
-RUN mkdir -p /opt/
 ADD ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz /tmp/
 ADD ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz.sha512 /tmp/
-RUN cd /tmp/ \
+RUN mkdir -p /opt/ && cd /tmp/ \
  && sha512sum -c apache-jmeter-${JMETER_VERSION}.tgz.sha512 \
  && tar x -z -f apache-jmeter-${JMETER_VERSION}.tgz -C /opt \
  && rm -R -f apache* \
@@ -63,7 +62,9 @@ RUN cd /tmp/ \
 # Setup user
 ARG USERNAME=steadybit
 ARG USER_UID=10000
-RUN adduser --uid $USER_UID $USERNAME
+ARG USER_GID=$USER_UID
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
 USER $USERNAME
 
 # Check installation
