@@ -3,6 +3,7 @@
 ## v1.0.14 (next)
 
 - Update dependencies (go 1.22)
+- Update to JMeter 5.6.3
 
 ## v1.0.13
 

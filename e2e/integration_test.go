@@ -8,6 +8,7 @@ import (
 	"github.com/steadybit/action-kit/go/action_kit_test/e2e"
 	"github.com/stretchr/testify/require"
 	"testing"
+	"time"
 )
 
 func TestWithMinikube(t *testing.T) {
@@ -47,6 +48,6 @@ func testRunJMeter(t *testing.T, m *e2e.Minikube, e *e2e.Extension) {
 	exec, err := e.RunActionWithFiles("com.steadybit.extension_jmeter.run", nil, config, nil, files)
 	require.NoError(t, err)
 	e2e.AssertProcessRunningInContainer(t, m, e.Pod, "extension", "jmeter", true)
-	e2e.AssertLogContains(t, m, e.Pod, "Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445")
+	e2e.AssertLogContainsWithTimeout(t, m, e.Pod, "Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445", 60*time.Second)
 	require.NoError(t, exec.Cancel())
 }
