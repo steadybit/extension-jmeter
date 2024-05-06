@@ -23,7 +23,7 @@ helm upgrade steadybit-extension-jmeter \
     --wait \
     --timeout 5m0s \
     --create-namespace \
-    --namespace steadybit-extension \
+    --namespace steadybit-agent \
     steadybit-extension-jmeter/steadybit-extension-jmeter
 ```
 
