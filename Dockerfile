@@ -39,11 +39,11 @@ FROM azul/zulu-openjdk-debian:21
 
 LABEL "steadybit.com.discovery-disabled"="true"
 
-ENV MIRROR https://downloads.apache.org/jmeter/binaries
-ENV JMETER_VERSION 5.6.3
-ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
-ENV JMETER_BIN ${JMETER_HOME}/bin
-ENV PATH ${JMETER_BIN}:$PATH
+ENV MIRROR=https://downloads.apache.org/jmeter/binaries
+ENV JMETER_VERSION=5.6.3
+ENV JMETER_HOME=/opt/apache-jmeter-${JMETER_VERSION}
+ENV JMETER_BIN=${JMETER_HOME}/bin
+ENV PATH=${JMETER_BIN}:$PATH
 
 ## Installing dependencies
 RUN apt-get update && \
