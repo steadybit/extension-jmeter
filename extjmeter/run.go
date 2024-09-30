@@ -54,6 +54,7 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 		Description: "Execute a JMeter load test.",
 		Version:     extbuild.GetSemverVersionStringOrUnknown(),
 		Icon:        extutil.Ptr(actionIcon),
+		Technology:  extutil.Ptr("JMeter"),
 		Kind:        action_kit_api.LoadTest,
 		TimeControl: action_kit_api.TimeControlInternal,
 		Hint: &action_kit_api.ActionHint{
