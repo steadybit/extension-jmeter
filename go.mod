@@ -6,7 +6,7 @@ toolchain go1.22.2
 
 require (
 	github.com/KimMachineGun/automemlimit v0.6.1
-	github.com/antchfx/xmlquery v1.4.1
+	github.com/antchfx/xmlquery v1.4.2
 	github.com/google/uuid v1.6.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/rs/zerolog v1.33.0
@@ -19,7 +19,7 @@ require (
 )
 
 require (
-	github.com/antchfx/xpath v1.3.1 // indirect
+	github.com/antchfx/xpath v1.3.2 // indirect
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
 	github.com/cilium/ebpf v0.14.0 // indirect
 	github.com/containerd/cgroups/v3 v3.0.3 // indirect
