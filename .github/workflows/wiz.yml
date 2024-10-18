@@ -1,0 +1,43 @@
+name: wiz
+
+on:
+  workflow_dispatch: { }
+  schedule:
+    - cron: '0 5 * * 1-5'
+
+
+jobs:
+  scan-latest-release:
+    name: Scan latest release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Github Packages
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull latest image
+        run: |
+          docker pull ghcr.io/steadybit/extension-jmeter:latest
+
+      - name: Download Wiz CLI
+        if: ${{ env.wiz_available == 'true' }}
+        run: curl -o wizcli https://downloads.wiz.io/wizcli/latest/wizcli-linux-amd64 && chmod +x wizcli
+
+      - name: Authenticate to Wiz
+        if: ${{ env.wiz_available == 'true' }}
+        run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
+        env:
+          WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+          WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+
+      - name: Run wiz-cli docker image scan
+        if: ${{ env.wiz_available == 'true' }}
+        run: ./wizcli docker scan --image ghcr.io/steadybit/extension-jmeter:latest --policy "Default vulnerabilities policy"
