@@ -35,4 +35,4 @@ jobs:
           WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
 
       - name: Run wiz-cli docker image scan
-        run: ./wizcli docker scan --image ghcr.io/steadybit/extension-jmeter:latest --policy "Default vulnerabilities policy"
+        run: ./wizcli docker scan --image ghcr.io/steadybit/extension-jmeter:latest --policy "Extensions Policy"
