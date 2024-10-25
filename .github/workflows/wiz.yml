@@ -35,4 +35,4 @@ jobs:
           WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
 
       - name: Run wiz-cli docker image scan
-        run: ./wizcli docker scan --image ghcr.io/steadybit/extension-jmeter:latest --policy "Extensions Policy"
+        run: ./wizcli docker scan --image ghcr.io/steadybit/extension-jmeter:latest --policy "Extensions Policy" --tag github_action_run_id=${{ github.run_id }}
