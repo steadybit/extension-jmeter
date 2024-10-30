@@ -28,3 +28,5 @@ jobs:
       VERSION_BUMPER_SECRET: ${{ secrets.GH_APP_STEADYBIT_PRIVATE_KEY }}
       WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
       WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
