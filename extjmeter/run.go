@@ -12,6 +12,7 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/steadybit/action-kit/go/action_kit_api/v2"
 	"github.com/steadybit/action-kit/go/action_kit_sdk"
+	"github.com/steadybit/extension-jmeter/config"
 	extension_kit "github.com/steadybit/extension-kit"
 	"github.com/steadybit/extension-kit/extbuild"
 	"github.com/steadybit/extension-kit/extcmd"
@@ -48,7 +49,7 @@ func (l *JmeterLoadTestRunAction) NewEmptyState() JmeterLoadTestRunState {
 }
 
 func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
-	return action_kit_api.ActionDescription{
+	description := action_kit_api.ActionDescription{
 		Id:          actionId,
 		Label:       "JMeter",
 		Description: "Execute a JMeter load test.",
@@ -71,6 +72,7 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 				AcceptedFileTypes: extutil.Ptr([]string{
 					".jmx",
 				}),
+				Order: extutil.Ptr(1),
 			},
 			{
 				Name:        "parameter",
@@ -78,6 +80,7 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 				Description: extutil.Ptr("Parameters will be accessible from your JMeter Script by ${__P(FOOBAR)}"),
 				Type:        action_kit_api.KeyValue,
 				Required:    extutil.Ptr(true),
+				Order:       extutil.Ptr(2),
 			},
 		},
 		Status: extutil.Ptr(action_kit_api.MutatingEndpointReferenceWithCallInterval{
@@ -85,6 +88,25 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 		}),
 		Stop: extutil.Ptr(action_kit_api.MutatingEndpointReference{}),
 	}
+
+	if config.Config.EnableLocationSelection {
+		description.Parameters = append(description.Parameters, action_kit_api.ActionParameter{
+			Name:  "-",
+			Label: "Filter JMeter Locations",
+			Type:  action_kit_api.ActionParameterTypeTargetSelection,
+			Order: extutil.Ptr(3),
+		})
+		description.TargetSelection = extutil.Ptr(action_kit_api.TargetSelection{
+			TargetType: targetType,
+			DefaultBlastRadius: extutil.Ptr(action_kit_api.DefaultBlastRadius{
+				Mode:  action_kit_api.DefaultBlastRadiusModeMaximum,
+				Value: 1,
+			}),
+			MissingQuerySelection: extutil.Ptr(action_kit_api.MissingQuerySelectionIncludeAll),
+		})
+	}
+
+	return description
 }
 
 type JMeterLoadTestRunConfig struct {
