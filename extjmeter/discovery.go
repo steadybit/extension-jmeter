@@ -41,7 +41,7 @@ func (e *jmeterLocationDiscovery) DescribeTarget() discovery_kit_api.TargetDescr
 	return discovery_kit_api.TargetDescription{
 		Id:       targetType,
 		Label:    discovery_kit_api.PluralLabel{One: "JMeter Location", Other: "JMeter Locations"},
-		Category: extutil.Ptr("check"),
+		Category: extutil.Ptr("execution locations"),
 		Version:  extbuild.GetSemverVersionStringOrUnknown(),
 		Icon:     extutil.Ptr(targetIcon),
 
