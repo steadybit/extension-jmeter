@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.17 (next release)
+
+- Optional location selection (can be enabled via STEADYBIT_EXTENSION_ENABLE_LOCATION_SELECTION env var, requires platform => 2.1.26)
+
 ## v1.0.16
 
 - Set new `Technology` property in extension description
