@@ -66,7 +66,7 @@ ARG USER_UID=10000
 ARG USER_GID=$USER_UID
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
-USER $USERNAME
+USER $USER_UID
 
 # Check installation
 RUN jmeter --version
