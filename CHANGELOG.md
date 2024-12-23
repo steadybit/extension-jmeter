@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.18
+
+- Update dependencies
+
 ## v1.0.17
 
 - Optional location selection (can be enabled via STEADYBIT_EXTENSION_ENABLE_LOCATION_SELECTION env var, requires platform => 2.1.27)
