@@ -22,6 +22,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"time"
 )
 
 type JmeterLoadTestRunAction struct{}
@@ -279,8 +280,10 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 		}
 	}
 
+	//wait until result file is written
+	time.Sleep(1 * time.Second)
 	resultFilename := fmt.Sprintf("/tmp/steadybit/%v/result.jtl", state.ExecutionId)
-	_, err = os.Stat(resultFilename)
+	resultFileStats, err := os.Stat(resultFilename)
 	var resultFailure *action_kit_api.ActionKitError
 	if err == nil { // file exists
 		content, err := extfile.File2Base64(resultFilename)
@@ -303,17 +306,23 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 				log.Error().Msgf("Failed to close file: %s", err)
 			}
 		}(resultFile)
-		resultXml, err := xmlquery.Parse(resultFile)
-		if err != nil {
-			log.Error().Msgf("Failed to parse result xml: %s", err)
-			return nil, err
-		}
-		failure := xmlquery.Find(resultXml, "//failureMessage[not(*) and normalize-space(.)]")
-		if len(failure) > 0 {
-			resultFailure = &action_kit_api.ActionKitError{
-				Status: extutil.Ptr(action_kit_api.Failed),
-				Title:  fmt.Sprintf("%d assertion failures found.", len(failure)),
+
+		// Get file info to check the size
+		if resultFileStats.Size() > 0 {
+			resultXml, err := xmlquery.Parse(resultFile)
+			if err == nil {
+				failure := xmlquery.Find(resultXml, "//failureMessage[not(*) and normalize-space(.)]")
+				if len(failure) > 0 {
+					resultFailure = &action_kit_api.ActionKitError{
+						Status: extutil.Ptr(action_kit_api.Failed),
+						Title:  fmt.Sprintf("%d assertion failures found.", len(failure)),
+					}
+				}
+			} else {
+				log.Warn().Err(err).Msg("Failed to parse result file.")
 			}
+		} else {
+			log.Debug().Msg("Result file is empty.")
 		}
 	}
 
