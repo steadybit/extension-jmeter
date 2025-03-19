@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.20
+
+- Update dependencies
+- Remove unused OS dependencies in image
+
 ## v1.0.19
 
 - Update dependencies
