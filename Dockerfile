@@ -38,7 +38,7 @@ RUN make licenses-report
 ##
 ## Runtime
 ##
-FROM azul/zulu-openjdk-debian:23
+FROM azul/zulu-openjdk-debian:24
 
 ARG VERSION=unknown
 ARG REVISION=unknown
@@ -57,7 +57,8 @@ ENV PATH=${JMETER_BIN}:$PATH
 ## Installing dependencies
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends wget coreutils unzip bash curl procps
+    apt-get install -y --no-install-recommends coreutils bash procps && \
+    apt-get clean
 
 # Installing jmeter
 ADD ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz /tmp/
