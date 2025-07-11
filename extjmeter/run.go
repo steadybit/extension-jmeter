@@ -68,7 +68,7 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 				Name:        "file",
 				Label:       "JMeter JMX File",
 				Description: extutil.Ptr("Upload your JMeter Script"),
-				Type:        action_kit_api.File,
+				Type:        action_kit_api.ActionParameterTypeFile,
 				Required:    extutil.Ptr(true),
 				AcceptedFileTypes: extutil.Ptr([]string{
 					".jmx",
@@ -79,7 +79,7 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 				Name:        "parameter",
 				Label:       "JMeter Parameter",
 				Description: extutil.Ptr("Parameters will be accessible from your JMeter Script by ${__P(FOOBAR)}"),
-				Type:        action_kit_api.KeyValue,
+				Type:        action_kit_api.ActionParameterTypeKeyValue,
 				Required:    extutil.Ptr(true),
 				Order:       extutil.Ptr(2),
 			},
