@@ -57,7 +57,7 @@ ENV PATH=${JMETER_BIN}:$PATH
 ## Installing dependencies
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends coreutils bash procps && \
+    apt-get install -y --no-install-recommends coreutils bash procps wget && \
     apt-get clean
 
 # Installing jmeter
