@@ -70,6 +70,12 @@ RUN mkdir -p /opt/ && cd /tmp/ \
  && rm --recursive --force  ${JMETER_HOME}/docs \
  && chmod +x ${JMETER_HOME}/bin/*.sh
 
+# Fix CVE-2025-48924: Replace vulnerable commons-lang3 with fixed version - remove after jmeter version with updated commons-lang3 is released
+RUN cd /tmp \
+ && wget -q https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.jar \
+ && rm -f ${JMETER_HOME}/lib/commons-lang3-*.jar \
+ && mv commons-lang3-3.18.0.jar ${JMETER_HOME}/lib/
+
 # Setup user
 ARG USERNAME=steadybit
 ARG USER_UID=10000
