@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.21
+
+- Updated dependencies
+- Fix CVE-2025-48924
+
 ## v1.0.20
 
 - Updated dependencies
