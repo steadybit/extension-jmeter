@@ -72,9 +72,8 @@ RUN mkdir -p /opt/ && cd /tmp/ \
 
 # Fix CVE-2025-48924: Replace vulnerable commons-lang3 with fixed version - remove after jmeter version with updated commons-lang3 is released
 RUN cd /tmp \
- && wget -q https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.jar \
  && rm -f ${JMETER_HOME}/lib/commons-lang3-*.jar \
- && mv commons-lang3-3.18.0.jar ${JMETER_HOME}/lib/
+ && wget --secure-protocol=TLSv1_2 --max-redirect=0 -q https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.jar -O ${JMETER_HOME}/lib/commons-lang3-3.18.0.jar
 
 # Setup user
 ARG USERNAME=steadybit
