@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.22
+
+- Updated dependencies
+- Parameters are optional
+
 ## v1.0.21
 
 - Updated dependencies

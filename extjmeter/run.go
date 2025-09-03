@@ -80,7 +80,7 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 				Label:       "JMeter Parameter",
 				Description: extutil.Ptr("Parameters will be accessible from your JMeter Script by ${__P(FOOBAR)}"),
 				Type:        action_kit_api.ActionParameterTypeKeyValue,
-				Required:    extutil.Ptr(true),
+				Required:    extutil.Ptr(false),
 				Order:       extutil.Ptr(2),
 			},
 		},
