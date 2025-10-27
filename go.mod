@@ -3,7 +3,7 @@ module github.com/steadybit/extension-jmeter
 go 1.24.1
 
 require (
-	github.com/KimMachineGun/automemlimit v0.7.4
+	github.com/KimMachineGun/automemlimit v0.7.5
 	github.com/antchfx/xmlquery v1.5.0
 	github.com/google/uuid v1.6.0
 	github.com/kelseyhightower/envconfig v1.4.0
