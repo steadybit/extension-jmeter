@@ -3,7 +3,7 @@
 ##
 ## Build
 ##
-FROM --platform=$BUILDPLATFORM golang:1.25-trixie AS build
+FROM --platform=$BUILDPLATFORM golang:1.25-alpine AS build
 
 ARG TARGETOS
 ARG TARGETARCH
@@ -17,16 +17,14 @@ ARG REVISION=unknown
 
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends build-essential
+RUN apk add --no-cache make
 COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
 COPY . .
 
-RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build \
+RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build \
     -ldflags="\
     -X 'github.com/steadybit/extension-kit/extbuild.ExtensionName=${NAME}' \
     -X 'github.com/steadybit/extension-kit/extbuild.Version=${VERSION}' \
@@ -38,7 +36,7 @@ RUN make licenses-report
 ##
 ## Runtime
 ##
-FROM azul/zulu-openjdk-debian:25
+FROM azul/zulu-openjdk-alpine:25
 
 ARG VERSION=unknown
 ARG REVISION=unknown
@@ -55,10 +53,7 @@ ENV JMETER_BIN=${JMETER_HOME}/bin
 ENV PATH=${JMETER_BIN}:$PATH
 
 ## Installing dependencies
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends coreutils bash procps wget && \
-    apt-get clean
+RUN apk add --no-cache coreutils bash procps wget
 
 # Installing jmeter
 ADD ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz /tmp/
@@ -78,9 +73,7 @@ RUN cd /tmp \
 # Setup user
 ARG USERNAME=steadybit
 ARG USER_UID=10000
-ARG USER_GID=$USER_UID
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
+RUN adduser -u $USER_UID -D $USERNAME
 USER $USER_UID
 
 # Check installation
