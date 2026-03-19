@@ -1,8 +1,12 @@
 # Changelog
 
-## (next)
+## v1.0.29
 
 - Support if-none-match for the extension list endpoint
+- feat(chart): split image.name into image.registry + image.name
+- Align clusterName template to use dig-based nil-safe pattern
+- Support global.priorityClassName
+- Update dependencies
 
 ## v1.0.28
 
