@@ -36,7 +36,7 @@ RUN make licenses-report
 ##
 ## Runtime
 ##
-FROM azul/zulu-openjdk-alpine:25
+FROM azul/zulu-openjdk-alpine:26
 
 ARG VERSION=unknown
 ARG REVISION=unknown
