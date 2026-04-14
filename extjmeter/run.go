@@ -55,8 +55,8 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 		Label:       "JMeter",
 		Description: "Execute a JMeter load test.",
 		Version:     extbuild.GetSemverVersionStringOrUnknown(),
-		Icon:        extutil.Ptr(actionIcon),
-		Technology:  extutil.Ptr("JMeter"),
+		Icon:        new(actionIcon),
+		Technology:  new("JMeter"),
 		Kind:        action_kit_api.LoadTest,
 		TimeControl: action_kit_api.TimeControlInternal,
 		Hint: &action_kit_api.ActionHint{
@@ -67,27 +67,27 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 			{
 				Name:        "file",
 				Label:       "JMeter JMX File",
-				Description: extutil.Ptr("Upload your JMeter Script"),
+				Description: new("Upload your JMeter Script"),
 				Type:        action_kit_api.ActionParameterTypeFile,
-				Required:    extutil.Ptr(true),
-				AcceptedFileTypes: extutil.Ptr([]string{
+				Required:    new(true),
+				AcceptedFileTypes: new([]string{
 					".jmx",
 				}),
-				Order: extutil.Ptr(1),
+				Order: new(1),
 			},
 			{
 				Name:        "parameter",
 				Label:       "JMeter Parameter",
-				Description: extutil.Ptr("Parameters will be accessible from your JMeter Script by ${__P(FOOBAR)}"),
+				Description: new("Parameters will be accessible from your JMeter Script by ${__P(FOOBAR)}"),
 				Type:        action_kit_api.ActionParameterTypeKeyValue,
-				Required:    extutil.Ptr(false),
-				Order:       extutil.Ptr(2),
+				Required:    new(false),
+				Order:       new(2),
 			},
 		},
-		Status: extutil.Ptr(action_kit_api.MutatingEndpointReferenceWithCallInterval{
-			CallInterval: extutil.Ptr("5s"),
+		Status: new(action_kit_api.MutatingEndpointReferenceWithCallInterval{
+			CallInterval: new("5s"),
 		}),
-		Stop: extutil.Ptr(action_kit_api.MutatingEndpointReference{}),
+		Stop: new(action_kit_api.MutatingEndpointReference{}),
 	}
 
 	if config.Config.EnableLocationSelection {
@@ -95,11 +95,11 @@ func (l *JmeterLoadTestRunAction) Describe() action_kit_api.ActionDescription {
 			Name:  "-",
 			Label: "Filter JMeter Locations",
 			Type:  action_kit_api.ActionParameterTypeTargetSelection,
-			Order: extutil.Ptr(3),
+			Order: new(3),
 		})
-		description.TargetSelection = extutil.Ptr(action_kit_api.TargetSelection{
+		description.TargetSelection = new(action_kit_api.TargetSelection{
 			TargetType: targetType,
-			DefaultBlastRadius: extutil.Ptr(action_kit_api.DefaultBlastRadius{
+			DefaultBlastRadius: new(action_kit_api.DefaultBlastRadius{
 				Mode:  action_kit_api.DefaultBlastRadiusModeMaximum,
 				Value: 1,
 			}),
@@ -202,7 +202,7 @@ func (l *JmeterLoadTestRunAction) Status(_ context.Context, state *JmeterLoadTes
 	messages := stdOutToMessages(stdOut)
 	log.Debug().Msgf("Returning %d messages", len(messages))
 
-	result.Messages = extutil.Ptr(messages)
+	result.Messages = new(messages)
 	return &result, nil
 }
 
@@ -328,8 +328,8 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 
 	log.Debug().Msgf("Returning %d messages", len(messages))
 	return &action_kit_api.StopResult{
-		Artifacts: extutil.Ptr(artifacts),
-		Messages:  extutil.Ptr(messages),
+		Artifacts: new(artifacts),
+		Messages:  new(messages),
 		Error:     resultFailure,
 	}, nil
 }
