@@ -53,7 +53,7 @@ ENV JMETER_BIN=${JMETER_HOME}/bin
 ENV PATH=${JMETER_BIN}:$PATH
 
 ## Installing dependencies
-RUN apk add --update --no-cache coreutils bash procps wget && apk upgrade
+RUN apk add --update --no-cache coreutils bash procps wget && apk upgrade --no-cache
 
 # Installing jmeter
 ADD ${MIRROR}/apache-jmeter-${JMETER_VERSION}.tgz /tmp/
