@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.36
+
+- Maintenance release
+
 ## v1.0.35
 
 - chore: update to go 1.26.4
