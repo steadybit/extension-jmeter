@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.35
+
+- chore: update to go 1.26.4
+- chore: update trivyignore
+- feat: add weekly auto patch-release workflow
+
 ## v1.0.34
 
 - Support discovery group attribute via `STEADYBIT_EXTENSION_DISCOVERY_GROUP` env var (or `discovery.group` Helm value) — when set, the extension adds `steadybit.group=<value>` to every discovered target
