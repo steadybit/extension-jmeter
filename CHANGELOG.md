@@ -7,7 +7,6 @@
 ## v1.0.35
 
 - chore: update to go 1.26.4
-- chore: update trivyignore
 - feat: add weekly auto patch-release workflow
 
 ## v1.0.34
