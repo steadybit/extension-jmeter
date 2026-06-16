@@ -51,3 +51,8 @@ vulnerabilities:
       - opt/apache-jmeter-5.6.3/lib/neo4j-java-driver-4.4.13.jar
     statement: Wait for a new JMeter-Release
     expired_at: 2026-09-01
+  - id: CVE-2026-50010
+    paths:
+      - opt/apache-jmeter-5.6.3/lib/neo4j-java-driver-4.4.13.jar
+    statement: Wait for a new JMeter-Release
+    expired_at: 2026-09-01
