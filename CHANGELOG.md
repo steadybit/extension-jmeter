@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.37
+
+- chore(deps): bump golang.org/x/net to v0.55.0 (CVE-2026-39821) (#133)
+
 ## v1.0.36
 
 - Maintenance release
