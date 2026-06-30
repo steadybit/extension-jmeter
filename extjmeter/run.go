@@ -159,7 +159,7 @@ func (l *JmeterLoadTestRunAction) Start(_ context.Context, state *JmeterLoadTest
 
 	state.Pid = cmd.Process.Pid
 	go func() {
-		cmdErr := cmd.Wait()
+		cmdErr := cmdState.Wait()
 		if cmdErr != nil {
 			log.Error().Msgf("Failed to execute jmeter: %s", cmdErr)
 		}
@@ -181,7 +181,7 @@ func (l *JmeterLoadTestRunAction) Status(_ context.Context, state *JmeterLoadTes
 	var result action_kit_api.StatusResult
 
 	// check if jmeter is still running
-	exitCode := cmdState.Cmd.ProcessState.ExitCode()
+	exitCode := cmdState.ExitCode()
 	stdOut := cmdState.GetLines(false)
 	stdOutToLog(stdOut)
 	if exitCode == -1 {
@@ -237,7 +237,7 @@ func (l *JmeterLoadTestRunAction) Stop(_ context.Context, state *JmeterLoadTestR
 	messages := stdOutToMessages(stdOut)
 
 	// read return code and send it as Message
-	exitCode := cmdState.Cmd.ProcessState.ExitCode()
+	exitCode := cmdState.ExitCode()
 	if exitCode != 0 && exitCode != -1 {
 		messages = append(messages, action_kit_api.Message{
 			Level:   extutil.Ptr(action_kit_api.Error),
