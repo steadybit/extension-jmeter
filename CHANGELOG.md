@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- fix: resolve the data race on the JMeter process exit code between the process-reaping goroutine and the status/stop handlers (via `extcmd.CmdState.Wait`/`ExitCode`)
+
 ## v1.0.38
 
 - chore(deps): bump github.com/steadybit/extension-kit
