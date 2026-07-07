@@ -1,7 +1,13 @@
 # Changelog
 
-## Unreleased
+## v1.0.39
 
+- chore(deps): bump github.com/steadybit/action-kit/go/action_kit_sdk
+- chore(deps): bump github.com/steadybit/discovery-kit/go/discovery_kit_sdk
+- chore(deps): bump github.com/steadybit/extension-kit
+- chore: add Claude Code workflows (#137)
+- chore: silence SonarQube finding on secrets: inherit in Claude workflows
+- fix: resolve data race on the process exit code (#138)
 - fix: resolve the data race on the JMeter process exit code between the process-reaping goroutine and the status/stop handlers (via `extcmd.CmdState.Wait`/`ExitCode`)
 
 ## v1.0.38
