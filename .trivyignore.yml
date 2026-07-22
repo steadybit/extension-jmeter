@@ -68,3 +68,6 @@ vulnerabilities:
       - opt/apache-jmeter-5.6.3/lib/jackson-databind-2.16.1.jar
     statement: Wait for a new JMeter-Release
     expired_at: 2026-09-01
+  - id: GHSA-r7wm-3cxj-wff9
+    statement: Waiting for debian upstream fix
+    expired_at: 2026-09-01
