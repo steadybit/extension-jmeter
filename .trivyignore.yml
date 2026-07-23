@@ -63,13 +63,11 @@ vulnerabilities:
     expired_at: 2026-09-01
   - id: CVE-2026-54512
     paths:
-      - home/steadybit/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.21.3/jackson-databind-2.21.3.jar
       - opt/apache-jmeter-5.6.3/lib/jackson-databind-2.16.1.jar
     statement: Wait for a new JMeter-Release
     expired_at: 2026-09-01
   - id: CVE-2026-54513
     paths:
-      - home/steadybit/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.21.3/jackson-databind-2.21.3.jar
       - opt/apache-jmeter-5.6.3/lib/jackson-databind-2.16.1.jar
     statement: Wait for a new JMeter-Release
     expired_at: 2026-09-01
