@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.43
+
+- feat: support filtering targets out of discovery
+
 ## v1.0.42
 
 - chore(deps): update dependencies
