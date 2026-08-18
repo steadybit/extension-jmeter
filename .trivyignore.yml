@@ -74,3 +74,13 @@ vulnerabilities:
   - id: GHSA-r7wm-3cxj-wff9
     statement: Waiting for debian upstream fix
     expired_at: 2026-09-01
+  - id: CVE-2026-54399
+    paths:
+      - opt/apache-jmeter-5.6.3/lib/httpcore5-5.2.4.jar
+    statement: Wait for a new JMeter-Release
+    expired_at: 2027-02-01
+  - id: CVE-2026-54428
+    paths:
+      - opt/apache-jmeter-5.6.3/lib/httpcore5-h2-5.2.4.jar
+    statement: Wait for a new JMeter-Release
+    expired_at: 2027-02-01
