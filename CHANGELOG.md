@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.44
+
+- chore(deps): bump steadybit kits and drop Go patch pin (#144)
+
 ## v1.0.43
 
 - feat: support filtering targets out of discovery
