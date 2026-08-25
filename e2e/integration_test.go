@@ -4,11 +4,14 @@
 package e2e
 
 import (
-	"github.com/steadybit/action-kit/go/action_kit_test/client"
-	"github.com/steadybit/action-kit/go/action_kit_test/e2e"
-	"github.com/stretchr/testify/require"
+	"encoding/base64"
 	"testing"
 	"time"
+
+	"github.com/steadybit/action-kit/go/action_kit_test/client"
+	"github.com/steadybit/action-kit/go/action_kit_test/e2e"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestWithMinikube(t *testing.T) {
@@ -49,5 +52,23 @@ func testRunJMeter(t *testing.T, m *e2e.Minikube, e *e2e.Extension) {
 	require.NoError(t, err)
 	e2e.AssertProcessRunningInContainer(t, m, e.Pod, "extension", "jmeter", true)
 	e2e.AssertLogContainsWithTimeout(t, m, e.Pod, "Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445", 60*time.Second)
-	require.NoError(t, exec.Cancel())
+
+	// That line is logged when the plan starts, so cancelling here would race result.jtl, which is
+	// written at the end. The plan is one thread doing one request, so waiting costs seconds.
+	require.NoError(t, exec.Wait())
+
+	artifacts := make(map[string][]byte)
+	for _, artifact := range exec.Artifacts() {
+		data, err := base64.StdEncoding.DecodeString(artifact.Data)
+		require.NoError(t, err, "artifact %s must be valid base64", artifact.Label)
+		artifacts[artifact.Label] = data
+	}
+
+	require.Contains(t, artifacts, "$(experimentKey)_$(executionId)_log.txt")
+	require.Contains(t, artifacts, "$(experimentKey)_$(executionId)_result.jtl")
+	assert.NotEmpty(t, artifacts["$(experimentKey)_$(executionId)_log.txt"], "the log artifact must carry JMeter's output")
+	// JMeter runs with output_format=xml and the stop handler parses the result with xmlquery, so
+	// testResults is the element that has to survive the trip back.
+	assert.Contains(t, string(artifacts["$(experimentKey)_$(executionId)_result.jtl"]), "<testResults",
+		"the result artifact must be the xml jtl the run wrote")
 }
