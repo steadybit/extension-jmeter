@@ -87,3 +87,6 @@ vulnerabilities:
   - id: CVE-2026-75595
     statement: waiting for update
     expired_at: 2027-02-01
+  - id: CVE-2026-14456
+    statement: waiting for update
+    expired_at: 2027-02-01
