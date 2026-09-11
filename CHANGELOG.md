@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.45
+
+- Zip log artifacts in-process instead of shelling out to zip (#145)
+- Update dependencies
+
 ## v1.0.44
 
 - chore(deps): bump steadybit kits and drop Go patch pin (#144)
