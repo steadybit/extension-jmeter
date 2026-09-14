@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.46
+
+- chore(deps): bump github.com/KimMachineGun/automemlimit from 0.7.5 to 1.0.0
+
 ## v1.0.45
 
 - Zip log artifacts in-process instead of shelling out to zip (#145)
