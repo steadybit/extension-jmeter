@@ -11,6 +11,35 @@ entries:
         - name: Steadybit reliability hub
           url: https://hub.steadybit.com
     apiVersion: v2
+    appVersion: v1.0.48
+    created: "2026-09-28T06:22:51.831410527Z"
+    dependencies:
+    - name: extensionlib
+      repository: https://steadybit.github.io/helm-charts
+      version: ^1.6.0
+    description: Steadybit jmeter extension Helm chart for Kubernetes.
+    digest: 3182dcdd329111b12cf795260528523dc8c1601cfcf36540368a8c36322111b4
+    home: https://www.steadybit.com/
+    icon: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+    maintainers:
+    - email: daniel.reuter@steadybit.com
+      name: reuda
+    name: steadybit-extension-jmeter
+    sources:
+    - https://github.com/steadybit/extension-jmeter
+    urls:
+    - https://github.com/steadybit/extension-jmeter/releases/download/steadybit-extension-jmeter-1.1.52/steadybit-extension-jmeter-1.1.52.tgz
+    version: 1.1.52
+  - annotations:
+      artifacthub.io/images: |
+        - name: logo
+          image: https://steadybit-website-assets.s3.amazonaws.com/logo-symbol-transparent.png
+      artifacthub.io/links: |-
+        - name: Steadybit website
+          url: https://www.steadybit.com
+        - name: Steadybit reliability hub
+          url: https://hub.steadybit.com
+    apiVersion: v2
     appVersion: v1.0.47
     created: "2026-09-21T08:18:09.056747599Z"
     dependencies:
@@ -1973,4 +2002,4 @@ entries:
     urls:
     - https://github.com/steadybit/extension-jmeter/releases/download/steadybit-extension-jmeter-1.0.0/steadybit-extension-jmeter-1.0.0.tgz
     version: 1.0.0
-generated: "2026-09-21T08:18:09.05689261Z"
+generated: "2026-09-28T06:22:51.831596145Z"
