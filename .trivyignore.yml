@@ -87,3 +87,8 @@ vulnerabilities:
   - id: CVE-2026-75595
     statement: waiting for update
     expired_at: 2027-02-01
+  - id: CVE-2026-84939
+    paths:
+      - opt/apache-jmeter-5.6.3/lib/freemarker-2.3.32.jar
+    statement: Wait for a new JMeter-Release
+    expired_at: 2027-02-01
