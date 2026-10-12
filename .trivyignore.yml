@@ -71,9 +71,6 @@ vulnerabilities:
       - opt/apache-jmeter-5.6.3/lib/jackson-databind-2.16.1.jar
     statement: Wait for a new JMeter-Release
     expired_at: 2027-02-01
-  - id: GHSA-r7wm-3cxj-wff9
-    statement: Waiting for debian upstream fix
-    expired_at: 2027-02-01
   - id: CVE-2026-54399
     paths:
       - opt/apache-jmeter-5.6.3/lib/httpcore5-5.2.4.jar
@@ -105,5 +102,20 @@ vulnerabilities:
   - id: CVE-2026-91777
     paths:
       - opt/apache-jmeter-5.6.3/lib/jackson-databind-2.16.1.jar
+    statement: Wait for a new JMeter-Release
+    expired_at: 2027-04-01
+  - id: CVE-2026-68494
+    paths:
+      - opt/apache-jmeter-5.6.3/lib/jackson-core-2.16.1.jar
+    statement: Wait for a new JMeter-Release
+    expired_at: 2027-04-01
+  - id: CVE-2026-89425
+    paths:
+      - opt/apache-jmeter-5.6.3/lib/jackson-core-2.16.1.jar
+    statement: Wait for a new JMeter-Release
+    expired_at: 2027-04-01
+  - id: CVE-2026-75140
+    paths:
+      - opt/apache-jmeter-5.6.3/lib/jsoup-1.17.1.jar
     statement: Wait for a new JMeter-Release
     expired_at: 2027-04-01
