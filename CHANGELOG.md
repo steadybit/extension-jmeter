@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.49
+
+- chore(deps): bump golang.org/x/net to v0.61.0
+- chore: ignore JMeter-bundled jackson-core and jsoup CVEs, remove stale entry
+
 ## v1.0.48
 
 - chore(deps): bump github.com/steadybit/action-kit/go/action_kit_test
