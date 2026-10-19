@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.50
+
+- chore(deps): bump github.com/antchfx/xmlquery from 1.5.1 to 1.5.2
+
 ## v1.0.49
 
 - chore(deps): bump golang.org/x/net to v0.61.0
