@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.51
+
+- chore(deps): bump github.com/KimMachineGun/automemlimit
+- chore(deps): bump github.com/steadybit/action-kit/go/action_kit_test
+- chore(deps): bump github.com/steadybit/extension-kit
+
 ## v1.0.50
 
 - chore(deps): bump github.com/antchfx/xmlquery from 1.5.1 to 1.5.2
