@@ -70,6 +70,19 @@ RUN cd /tmp \
  && rm -f ${JMETER_HOME}/lib/commons-lang3-*.jar \
  && wget --secure-protocol=TLSv1_2 --max-redirect=0 -q https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.jar -O ${JMETER_HOME}/lib/commons-lang3-3.18.0.jar
 
+# Fix jackson 2.16.1 CVEs (e.g. CVE-2026-110879): replace with jackson 2.22 (as on jmeter master) - remove after jmeter version with updated jackson is released
+RUN cd ${JMETER_HOME}/lib \
+ && rm -f jackson-annotations-*.jar jackson-core-*.jar jackson-databind-*.jar \
+ && wget --secure-protocol=TLSv1_2 --max-redirect=0 -q \
+    https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.22/jackson-annotations-2.22.jar \
+    https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.22.4/jackson-core-2.22.4.jar \
+    https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.22.4/jackson-databind-2.22.4.jar \
+ && printf '%s\n' \
+    "15c67f9498d6934cff9510fc70c5a12e52290457  jackson-annotations-2.22.jar" \
+    "d753ae59bae7dcb183f856da541c5b27272088ce  jackson-core-2.22.4.jar" \
+    "1ff5a55d62432f57e8044394976e598af0c5b3b8  jackson-databind-2.22.4.jar" \
+  | sha1sum -c -
+
 # Setup user
 ARG USERNAME=steadybit
 ARG USER_UID=10000
