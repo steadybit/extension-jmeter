@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.52
+
+- chore(deps): bump github.com/steadybit/action-kit/go/action_kit_api/v2
+- chore(deps): bump golang.org/x/net to v0.62.0
+- chore(deps): replace jmeter's bundled jackson 2.16.1 with 2.22.4
+
 ## v1.0.51
 
 - chore(deps): bump github.com/KimMachineGun/automemlimit
