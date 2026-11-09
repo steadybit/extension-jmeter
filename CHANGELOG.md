@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.53
+
+- chore(deps): verify the replaced jackson jars with SHA-256 (#161)
+
 ## v1.0.52
 
 - chore(deps): bump github.com/steadybit/action-kit/go/action_kit_api/v2
