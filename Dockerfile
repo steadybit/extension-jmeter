@@ -78,10 +78,10 @@ RUN cd ${JMETER_HOME}/lib \
     https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.22.4/jackson-core-2.22.4.jar \
     https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.22.4/jackson-databind-2.22.4.jar \
  && printf '%s\n' \
-    "15c67f9498d6934cff9510fc70c5a12e52290457  jackson-annotations-2.22.jar" \
-    "d753ae59bae7dcb183f856da541c5b27272088ce  jackson-core-2.22.4.jar" \
-    "1ff5a55d62432f57e8044394976e598af0c5b3b8  jackson-databind-2.22.4.jar" \
-  | sha1sum -c -
+    "21ddb598807d3a51a876704eb979d9296e1c6a6f47ab1826ff88c6d6a127a2d0  jackson-annotations-2.22.jar" \
+    "2d30c375cddea9657a1e1ef97547a2694b663b355facb4de53a097782b312d1a  jackson-core-2.22.4.jar" \
+    "d4cbf8947087f305869826801913abdc50735a1fab2074a1993e7bc67ca974a3  jackson-databind-2.22.4.jar" \
+  | sha256sum -c -
 
 # Setup user
 ARG USERNAME=steadybit
