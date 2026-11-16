@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.54
+
+- chore(deps): bump the steadybit group with 2 updates
+
 ## v1.0.53
 
 - chore(deps): verify the replaced jackson jars with SHA-256 (#161)
